@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Une surprise pour toi...</title>
+    <style>
+        /* --- STYLE (CSS) --- */
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #ffeef8; /* Fond rose clair */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+
+        #card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 350px;
+            position: relative;
+        }
+
+        h1 {
+            color: #d63384;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .gif-container img {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 100px; /* Espace pour que le bouton bouge */
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        #yesBtn {
+            background-color: #ff4d6d;
+            color: white;
+        }
+
+        #yesBtn:hover {
+            transform: scale(1.1);
+            background-color: #ff758f;
+        }
+
+        #noBtn {
+            background-color: #adb5bd;
+            color: white;
+            position: absolute; /* Crucial pour le déplacement */
+        }
+
+        /* Classe pour l'écran de succès */
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <div id="card">
+        <div id="question-screen">
+            <div class="gif-container">
+                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJueW94bmZ4bmZ4bmZ4bmZ4bmZ4bmZ4bmZ4bmZ4bmZ4bmZ4bmZ4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/cLS1cfxvGOPVpf9g3y/giphy.gif" alt="Cute cat">
+            </div>
+            <h1 id="main-text">Veux-tu être ma Valentine ? 💖</h1>
+            <div class="buttons">
+                <button id="yesBtn">Oui</button>
+                <button id="noBtn">Non</button>
+            </div>
+        </div>
+
+        <div id="success-screen" class="hidden">
+            <div class="gif-container">
+                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNzh6eW96N3N0ZzR3eHByZ2p6eHByZ2p6eHByZ2p6eHByZ2p6ZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0HlU7m88V9v8sS6Q/giphy.gif" alt="Fireworks">
+            </div>
+            <h1>YAY ! Je le savais ! 🥰✨</h1>
+        </div>
+    </div>
+
+    <script>
+        /* --- LOGIQUE (JavaScript) --- */
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const questionScreen = document.getElementById('question-screen');
+        const successScreen = document.getElementById('success-screen');
+
+        // 1. Faire fuir le bouton "Non"
+        noBtn.addEventListener('mouseover', () => {
+            // On calcule des coordonnées aléatoires
+            // On limite à la taille de la fenêtre pour que le bouton ne sorte pas trop
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+        });
+
+        // 2. Action quand on clique sur "Oui"
+        yesBtn.addEventListener('click', () => {
+            questionScreen.classList.add('hidden');
+            successScreen.classList.remove('hidden');
+            
+            // Petit bonus : lancer des confettis (si tu veux aller plus loin)
+            console.log("Elle a dit oui !");
+        });
+    </script>
+</body>
+</html>
